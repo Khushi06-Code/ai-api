@@ -2,8 +2,15 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from ml_model import predict_sepsis
 
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # allow all (easy fix)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 class PatientData(BaseModel):
     hr_mean: float
     temp_celsius_mean: float
